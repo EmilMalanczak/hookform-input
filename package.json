@@ -33,12 +33,12 @@
         "lint:fix": "pnpm lint:prettier && pnpm lint:eslint",
         "lint:check": "pnpm lint:prettier:check && pnpm lint:eslint:check",
         "typecheck": "tsc",
-        "test": "vitest",
+        "test": "vitest run",
         "test:coverage": "vitest --coverage",
-        "dev": "vite build --watch",
+        "dev": "vitest",
         "build": "pnpm typecheck && vite build",
         "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
-        "build-ci": "pnpm lint:check && pnpm build && pnpm check-exports && pnpm typecheck"
+        "build-ci": "pnpm lint:check && pnpm build && pnpm check-exports && pnpm typecheck && pnpm test"
     },
     "devDependencies": {
         "@arethetypeswrong/cli": "^0.17.0",
