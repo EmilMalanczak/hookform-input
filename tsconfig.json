@@ -15,12 +15,14 @@
         "removeComments": false,
         "jsx": "react-jsx",
         "strict": true,
+        "noEmit": true,
         "noUncheckedIndexedAccess": true,
         "noImplicitOverride": true,
-        "module": "NodeNext",
+        "module": "Preserve",
         "outDir": "dist",
-        "rootDir": "src",
+        "rootDir": ".",
         "sourceMap": true,
         "declaration": true
-    }
+    },
+    "include": ["src"]
 }

@@ -1,1 +1,1 @@
-export const hello = () => `Hello, world!`;
+export { Text } from './Test';
