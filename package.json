@@ -9,16 +9,21 @@
         "utility",
         "generics",
         "polymorphic"
-    ], 
-    "homepage": "", 
+    ],
+    "homepage": "",
     "bugs": {
         "url": "https://github.com/EmilMalanczak/hookform-input/issues"
     },
     "author": "EmilMalanczak <emil.malanczak@gmail.com>",
     "repository": {
         "type": "git",
-        "url": "git@github.com:EmilMalanczak/hookform-input.git" 
+        "url": "git@github.com:EmilMalanczak/hookform-input.git"
     },
-    "files": ["dist"],
-    "type": "module"
-} 
+    "files": [
+        "dist"
+    ],
+    "type": "module",
+    "devDependencies": { 
+        "typescript": "^5.6.3"
+    }
+}
