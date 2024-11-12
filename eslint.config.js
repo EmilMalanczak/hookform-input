@@ -37,6 +37,8 @@ export default [
         },
     },
     {
+        //  ignores has to be as a separate object in flat config - otherwise it doesnt work
+        //  https://github.com/eslint/eslint/issues/17400
         ignores: ['node_modules', 'dist'],
     },
 ];
