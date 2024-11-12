@@ -1,1 +1,1 @@
-export { Text } from './Test';
+export * from './form-input-bare';
