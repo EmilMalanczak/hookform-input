@@ -12,7 +12,6 @@ export default [
     pluginReact.configs.flat.recommended,
     configPrettier,
     {
-        ignores: ['node_modules', 'dist', 'public'],
         plugins: {
             '@typescript-eslint': typescriptEslint,
         },
@@ -36,5 +35,8 @@ export default [
             'react/react-in-jsx-scope': 'off',
             'react/jsx-uses-react': 'off',
         },
+    },
+    {
+        ignores: ['node_modules', 'dist'],
     },
 ];
