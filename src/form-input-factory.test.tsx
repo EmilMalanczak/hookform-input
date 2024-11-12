@@ -141,7 +141,7 @@ describe('Form input factory', () => {
 
             return (
                 <FormProvider {...form}>
-                    {/* @ts-expect-error - error should be display due to lack of 'controler' prop */}
+                    {/* @ts-expect-error - error should be display due to lack of 'controller' prop */}
                     <Input name="test" />
                 </FormProvider>
             );

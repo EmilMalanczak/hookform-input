@@ -15,7 +15,7 @@ export default defineConfig({
             fileName: (_, name) => `${name}.js`,
         },
         rollupOptions: {
-            external: ['react'],
+            external: ['react', 'react-hook-form'],
             output: {
                 globals: {
                     react: 'React',
