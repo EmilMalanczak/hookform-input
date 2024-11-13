@@ -1,5 +1,6 @@
 import type { FieldValues } from 'react-hook-form';
 
+import type { AutocompleteString } from '../types';
 import type { AdapterObject, GlobalAdapterProps, MappingFunction } from './form-input-adapter.types';
 import { DEFAULT_ADAPTER } from './default-adapter';
 
@@ -29,14 +30,18 @@ export class FormInputAdapters {
      * @returns {MappingFunction<ComponentProps, Form>} The transformFn function for the adapter.
      * @throws {Error} If the adapter with the specified key is not found.
      */
-    public get<Form extends FieldValues, Key extends keyof FormInputAdapterKeys>(key: Key) {
-        const adapter = this.adapters.get(key);
+    public get<Form extends FieldValues, Key extends AutocompleteString<keyof FormInputAdapterKeys>>(key: Key) {
+        const adapter = this.adapters.get(key as keyof FormInputAdapterKeys);
 
         if (!adapter) {
             throw new Error(`hookform-input: adapter with key ${key} not found`);
         }
 
-        return adapter as MappingFunction<GlobalAdapterProps<Key, 'input'>, Form, GlobalAdapterProps<Key, 'output'>>;
+        return adapter as MappingFunction<
+            GlobalAdapterProps<Extract<Key, keyof FormInputAdapterKeys>, 'input'>,
+            Form,
+            GlobalAdapterProps<Extract<Key, keyof FormInputAdapterKeys>, 'output'>
+        >;
     }
 }
 

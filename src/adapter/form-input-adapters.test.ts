@@ -68,9 +68,7 @@ describe('FormInputAdapters', () => {
     });
 
     it('throws an error when trying to get a non-existent adapter', () => {
-        const attemptToGetNonExistentAdapter = () =>
-            // @ts-expect-error - non existing key
-            adapters.get('nonExistentAdapter');
+        const attemptToGetNonExistentAdapter = () => adapters.get('nonExistentAdapter');
 
         expect(attemptToGetNonExistentAdapter).toThrowError(
             'hookform-input: adapter with key nonExistentAdapter not found',

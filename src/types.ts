@@ -17,3 +17,5 @@ export type PolymorphicRef<Input extends AllowedElement> = ComponentPropsWithRef
 
 declare const emptyObjectSymbol: unique symbol;
 export type EmptyObject = { [emptyObjectSymbol]?: never };
+
+export type AutocompleteString<T extends string> = T | (string & {});

@@ -1,7 +1,7 @@
 # hookform-input
 
-## 1.0.1
+## 1.0.0
 
-### Patch Changes
+### Major Changes
 
--   ab8000e: Add basic publish automation
+-   44a7c45: Initial release

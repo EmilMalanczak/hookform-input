@@ -2,7 +2,13 @@ import type { ComponentPropsWithoutRef, ElementType, PropsWithChildren } from 'r
 import type { Control, FieldValues, Path, UseControllerReturn } from 'react-hook-form';
 import { useController } from 'react-hook-form';
 
-import type { AdditionalControllerProps, AllowedElement, EmptyObject, PolymorphicRef } from './types';
+import type {
+    AdditionalControllerProps,
+    AllowedElement,
+    AutocompleteString,
+    EmptyObject,
+    PolymorphicRef,
+} from './types';
 import { DEFAULT_ADAPTER_KEY } from './adapter/default-adapter';
 import { formInputAdapters } from './adapter/form-input-adapters';
 import { genericForwardRef } from './helpers/generic-forward-ref';
@@ -38,7 +44,7 @@ type FormInputInternalOwnProps<Form extends FieldValues = FieldValues> = {
     /** 
       @string key to use for adapter
     */
-    adapterKey?: keyof FormInputAdapterKeys;
+    adapterKey?: AutocompleteString<keyof FormInputAdapterKeys>;
 };
 
 export type FormInputInternalBareProps<Form extends FieldValues = FieldValues> = {
@@ -108,7 +114,7 @@ function FormInputComponent<Form extends FieldValues, Input extends AllowedEleme
 
     const InputComponent = input ?? 'input';
 
-    const adapter = formInputAdapters.get<Form, keyof FormInputAdapterKeys>(adapterKey);
+    const adapter = formInputAdapters.get(adapterKey as keyof FormInputAdapterKeys);
 
     const propsObject = {
         value,
