@@ -1,5 +1,13 @@
 # hookform-input
 
+## 2.0.1
+
+### Patch Changes
+
+-   5613f8f: Adjust publishment flow
+-   5cf6e8a: add tests coverage
+-   97439c8: Make global adapters less strict typed
+
 ## 2.0.0
 
 ### Major Changes
