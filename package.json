@@ -39,7 +39,8 @@
         "build": "pnpm typecheck && vite build",
         "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
         "build-ci": "pnpm lint:check && pnpm build && pnpm check-exports && pnpm typecheck && pnpm test",
-        "publish": "changeset version && changeset publish",
+        "bump-version": "changeset version",
+        "publish": "changeset publish",
         "prepublishOnly": "pnpm build-ci"
     },
     "devDependencies": {
