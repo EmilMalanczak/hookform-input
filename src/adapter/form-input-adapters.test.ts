@@ -4,17 +4,6 @@ import type { FormInputForwardedProps } from './form-input-adapter.types';
 import { DEFAULT_ADAPTER_KEY } from './default-adapter';
 import { FormInputAdapters } from './form-input-adapters';
 
-declare global {
-    interface FormInputAdapterKeys {
-        testAdapter1: {
-            error: string;
-        };
-        testAdapter2: FormInputForwardedProps & {
-            something: string;
-        };
-    }
-}
-
 describe('FormInputAdapters', () => {
     let adapters: FormInputAdapters;
 
@@ -35,6 +24,7 @@ describe('FormInputAdapters', () => {
             key: adapterKey,
             transformFn: (props, originalProps) => ({
                 error: props.error ? 'There is an error' : '',
+                ...props,
                 ...originalProps,
             }),
         });

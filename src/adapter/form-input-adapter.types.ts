@@ -34,7 +34,6 @@ export type MappingFunction<
     OutputProps extends object = InputProps,
 > = (forwardedProps: FormInputForwardedProps<Form>, otherProps?: InputProps) => OutputProps;
 
-// TODO: make it working without the need to declare global interface
 export type GlobalAdapterProps<
     Key extends keyof FormInputAdapterKeys,
     InputType extends 'input' | 'output',
@@ -47,13 +46,15 @@ export type GlobalAdapterProps<
         : OutputProps
     : FormInputAdapterKeys[Key];
 
-export type AdapterObject = {
+export type AdapterObject<TKey = keyof FormInputAdapterKeys | string> = {
     [AdapterKey in keyof FormInputAdapterKeys]: {
-        key: AdapterKey;
-        transformFn: MappingFunction<
-            GlobalAdapterProps<AdapterKey, 'input'>,
-            FieldValues,
-            GlobalAdapterProps<AdapterKey, 'output'>
-        >;
+        key: TKey;
+        transformFn: TKey extends keyof FormInputAdapterKeys
+            ? MappingFunction<
+                  GlobalAdapterProps<AdapterKey, 'input'>,
+                  FieldValues,
+                  GlobalAdapterProps<AdapterKey, 'output'>
+              >
+            : MappingFunction<FormInputForwardedPropsBase, FieldValues, any>;
     };
 }[keyof FormInputAdapterKeys];

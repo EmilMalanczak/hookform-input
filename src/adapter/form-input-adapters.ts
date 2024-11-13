@@ -18,7 +18,7 @@ export class FormInputAdapters {
      * @param {AdapterObject} adapterObject - The adapter object containing key and transformFn function.
      */
     public register({ key, transformFn }: AdapterObject) {
-        this.adapters.set(key, transformFn);
+        this.adapters.set(key as keyof FormInputAdapterKeys, transformFn);
     }
 
     /**
