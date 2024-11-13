@@ -1,5 +1,11 @@
 # hookform-input
 
+## 2.0.0
+
+### Major Changes
+
+-   5708731: Reupload after ground refactor
+
 ## 1.0.1
 
 ### Patch Changes

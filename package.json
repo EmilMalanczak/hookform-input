@@ -1,6 +1,6 @@
 {
     "name": "hookform-input",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "license": "MIT",
     "description": "Smart, polymorphic and typesafe Input component for react-hook-form",
     "keywords": [
