@@ -1,16 +1,15 @@
 import type { FieldValues } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
 
-import type { FormInputProps } from './form-input-bare';
-import type { AllowedElement, PolymorphicRef } from './types';
+import type { AllowedElement, FormInputProps, PolymorphicRef } from './form-input-bare';
 import { FormInputBare } from './form-input-bare';
 import { genericForwardRef } from './helpers/generic-forward-ref';
 
-export function FormInputComponent<Form extends FieldValues, Input extends AllowedElement = 'input'>(
-    props: Omit<FormInputProps<Form, Input>, 'control'>,
-    ref?: PolymorphicRef<Input>,
+export function FormInputComponent<TForm extends FieldValues, TInput extends AllowedElement = 'input'>(
+    props: Omit<FormInputProps<TForm, TInput>, 'control'>,
+    ref?: PolymorphicRef<TInput>,
 ) {
-    const { control } = useFormContext<Form>();
+    const { control } = useFormContext<TForm>();
 
     return <FormInputBare {...(props as any)} control={control} ref={ref} />;
 }

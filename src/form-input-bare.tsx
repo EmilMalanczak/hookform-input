@@ -1,14 +1,8 @@
-import type { ComponentPropsWithoutRef, ElementType, PropsWithChildren } from 'react';
-import type { Control, FieldValues, Path, UseControllerReturn } from 'react-hook-form';
+import type { ComponentPropsWithoutRef, ComponentPropsWithRef, ElementType, PropsWithChildren } from 'react';
+import type { Control, FieldValues, Path, UseControllerProps, UseControllerReturn } from 'react-hook-form';
 import { useController } from 'react-hook-form';
 
-import type {
-    AdditionalControllerProps,
-    AllowedElement,
-    AutocompleteString,
-    EmptyObject,
-    PolymorphicRef,
-} from './types';
+import type { AutocompleteString, EmptyObject, PrefixedRecord } from './types';
 import { DEFAULT_ADAPTER_KEY } from './adapter/default-adapter';
 import { formInputAdapters } from './adapter/form-input-adapters';
 import { genericForwardRef } from './helpers/generic-forward-ref';
@@ -17,26 +11,38 @@ import { getErrorMessage } from './helpers/get-error-message';
 import { logInputEvent } from './helpers/log-input-event';
 import { mergeRefs } from './helpers/merge-refs';
 
-type PolymorphicProp<Input extends ElementType> = {
+type PolymorphicProp<TInput extends ElementType> = {
     /**
      * The component used for the root node. Either a string to use a HTML element or a component.
      */
-    input?: Input;
+    input?: TInput;
 };
+
+// list of controller props with prefix
+type AdditionalControllerProps<TForm extends FieldValues> = PrefixedRecord<
+    Omit<UseControllerProps<TForm>, 'name' | 'control'>,
+    '_controller'
+>;
+
+// Basically any these native elements and any React component are allowed
+export type AllowedElement = ElementType<any, 'input' | 'select' | 'textarea'>;
+
+// This is the type for the "ref" only
+export type PolymorphicRef<TInput extends AllowedElement> = ComponentPropsWithRef<TInput>['ref'];
 
 /**
  * This is the internal props for the component
  */
-type FormInputInternalOwnProps<Form extends FieldValues = FieldValues> = {
+type FormInputInternalOwnProps<TForm extends FieldValues = FieldValues> = {
     /** 
         @string name of the field in form
       */
-    name: Path<Form>;
+    name: Path<TForm>;
 
     /** 
       @string optional field from form fields to display error message
     */
-    alternativeErrorKeys?: Path<Form>[];
+    alternativeErrorKeys?: Path<TForm>[];
     /** 
       @boolean if true will log to console input changes with detailed information
     */
@@ -47,14 +53,14 @@ type FormInputInternalOwnProps<Form extends FieldValues = FieldValues> = {
     adapterKey?: AutocompleteString<keyof FormInputAdapterKeys>;
 };
 
-export type FormInputInternalBareProps<Form extends FieldValues = FieldValues> = {
+export type FormInputInternalBareProps<TForm extends FieldValues = FieldValues> = {
     /** 
        @object control object from useForm hook 
      */
-    control: Control<Form>;
+    control: Control<TForm>;
 };
 
-export type FormInputComponentProps<Form extends FieldValues> = UseControllerReturn<Form, Path<Form>> & {
+export type FormInputComponentProps<TForm extends FieldValues> = UseControllerReturn<TForm, Path<TForm>> & {
     error?: string;
     name: string;
 };
@@ -64,25 +70,25 @@ type PropsToOmit<C extends AllowedElement, P> = keyof PolymorphicProp<C> &
     keyof FormInputInternalOwnProps &
     keyof FormInputInternalBareProps;
 
-type PolymorphicComponentProp<Input extends AllowedElement, Props = EmptyObject> = PropsWithChildren<
-    Props & PolymorphicProp<Input>
+type PolymorphicComponentProp<TInput extends AllowedElement, TProps = EmptyObject> = PropsWithChildren<
+    TProps & PolymorphicProp<TInput>
 > &
-    Omit<ComponentPropsWithoutRef<Input>, PropsToOmit<Input, Props>>;
+    Omit<ComponentPropsWithoutRef<TInput>, PropsToOmit<TInput, TProps>>;
 
-type PolymorphicComponentPropWithRef<Input extends AllowedElement, Props = EmptyObject> = PolymorphicComponentProp<
-    Input,
-    Props
+type PolymorphicComponentPropWithRef<TInput extends AllowedElement, TProps = EmptyObject> = PolymorphicComponentProp<
+    TInput,
+    TProps
 > & {
-    ref?: PolymorphicRef<Input>;
+    ref?: PolymorphicRef<TInput>;
 };
 
-export type FormInputProps<Form extends FieldValues, Input extends AllowedElement> = PolymorphicComponentPropWithRef<
-    Input,
-    FormInputInternalOwnProps<Form>
+export type FormInputProps<TForm extends FieldValues, TInput extends AllowedElement> = PolymorphicComponentPropWithRef<
+    TInput,
+    FormInputInternalOwnProps<TForm>
 > &
-    AdditionalControllerProps<Form>;
+    AdditionalControllerProps<TForm>;
 
-function FormInputComponent<Form extends FieldValues, Input extends AllowedElement = 'input'>(
+function FormInputComponent<TForm extends FieldValues, TInput extends AllowedElement = 'input'>(
     {
         input,
         name,
@@ -97,10 +103,10 @@ function FormInputComponent<Form extends FieldValues, Input extends AllowedEleme
         _controllerDisabled,
         adapterKey = DEFAULT_ADAPTER_KEY,
         ...rest
-    }: FormInputProps<Form, Input> & FormInputInternalBareProps<Form>,
-    ref?: PolymorphicRef<Input>,
+    }: FormInputProps<TForm, TInput> & FormInputInternalBareProps<TForm>,
+    ref?: PolymorphicRef<TInput>,
 ) {
-    const controller = useController<Form, Path<Form>>({
+    const controller = useController<TForm, Path<TForm>>({
         name,
         control,
         rules: _controllerRules,

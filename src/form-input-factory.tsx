@@ -2,8 +2,7 @@
 import type { ComponentProps } from 'react';
 import type { FieldValues } from 'react-hook-form';
 
-import type { FormInputInternalBareProps, FormInputProps } from './form-input-bare';
-import type { AllowedElement } from './types';
+import type { AllowedElement, FormInputInternalBareProps, FormInputProps } from './form-input-bare';
 import { FormInput } from './form-input';
 import { FormInputBare } from './form-input-bare';
 
@@ -21,14 +20,14 @@ type InputFactoryParams<TDefaultProps, TBare extends boolean> = {
  * @returns A function that takes props and returns a FormInput component.
  */
 export const createFormInput =
-    <Input extends AllowedElement, TDefaultProps extends Partial<ComponentProps<Input>>, TBare extends boolean>(
-        input: Input,
+    <TInput extends AllowedElement, TDefaultProps extends Partial<ComponentProps<TInput>>, TBare extends boolean>(
+        input: TInput,
         { bare, defaultProps = {} as TDefaultProps }: InputFactoryParams<TDefaultProps, TBare> = {},
     ) =>
-    <Form extends FieldValues>(
-        props: PropsWithDefaults<FormInputProps<Form, Input>, TDefaultProps> &
+    <TForm extends FieldValues>(
+        props: PropsWithDefaults<FormInputProps<TForm, TInput>, TDefaultProps> &
             // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-            (TBare extends true ? FormInputInternalBareProps<Form> : {}),
+            (TBare extends true ? FormInputInternalBareProps<TForm> : {}),
     ) => {
         const InputComponent = bare ? FormInputBare : FormInput;
 
