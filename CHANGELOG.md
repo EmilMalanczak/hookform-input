@@ -1,5 +1,11 @@
 # hookform-input
 
+## 2.0.4
+
+### Patch Changes
+
+-   b78da69: Fix CommonJS module
+
 ## 2.0.3
 
 ### Patch Changes

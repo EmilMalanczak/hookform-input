@@ -1,6 +1,6 @@
 {
     "name": "hookform-input",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "license": "MIT",
     "description": "Smart, polymorphic and typesafe Input component for react-hook-form",
     "keywords": [
@@ -23,8 +23,16 @@
         "dist"
     ],
     "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs",
+            "types": "./dist/index.d.ts"
+        }
+    },
     "scripts": {
         "lint:prettier:fix": "prettier --write .",
         "lint:prettier:check": "prettier --check .",
@@ -68,11 +76,11 @@
         "typescript": "^5.6.3",
         "typescript-eslint": "^8.14.0",
         "vite": "^5.4.11",
-        "vite-plugin-dts": "^4.3.0",
+        "vite-plugin-dts": "^4.5.0",
         "vitest": "^2.1.4"
     },
     "peerDependencies": {
-        "react": "^18.3.1",
-        "react-hook-form": "^7.53.2"
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-hook-form": "^7.0.0"
     }
 }
