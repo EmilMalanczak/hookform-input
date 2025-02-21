@@ -2,7 +2,12 @@
 import type { ComponentProps } from 'react';
 import type { FieldValues } from 'react-hook-form';
 
-import type { AllowedElement, FormInputInternalBareProps, FormInputProps } from './form-input-bare';
+import type {
+    AllowedElement,
+    FormInputInternalBareProps,
+    FormInputInternalOwnProps,
+    FormInputProps,
+} from './form-input-bare';
 import { FormInput } from './form-input';
 import { FormInputBare } from './form-input-bare';
 
@@ -20,7 +25,11 @@ type InputFactoryParams<TDefaultProps, TBare extends boolean> = {
  * @returns A function that takes props and returns a FormInput component.
  */
 export const createFormInput =
-    <TInput extends AllowedElement, TDefaultProps extends Partial<ComponentProps<TInput>>, TBare extends boolean>(
+    <
+        TInput extends AllowedElement,
+        TDefaultProps extends Partial<ComponentProps<TInput>> & Pick<FormInputInternalOwnProps, 'adapterKey' | 'debug'>,
+        TBare extends boolean,
+    >(
         input: TInput,
         { bare, defaultProps = {} as TDefaultProps }: InputFactoryParams<TDefaultProps, TBare> = {},
     ) =>

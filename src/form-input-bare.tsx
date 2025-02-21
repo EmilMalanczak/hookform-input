@@ -33,7 +33,7 @@ export type PolymorphicRef<TInput extends AllowedElement> = ComponentPropsWithRe
 /**
  * This is the internal props for the component
  */
-type FormInputInternalOwnProps<TForm extends FieldValues = FieldValues> = {
+export type FormInputInternalOwnProps<TForm extends FieldValues = FieldValues> = {
     /** 
         @string name of the field in form
       */
