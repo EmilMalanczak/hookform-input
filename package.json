@@ -1,6 +1,6 @@
 {
     "name": "hookform-input",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "license": "MIT",
     "description": "Smart, polymorphic and typesafe Input component for react-hook-form",
     "keywords": [
@@ -39,7 +39,7 @@
         "build": "pnpm typecheck && vite build",
         "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
         "build-ci": "pnpm lint:check && pnpm build && pnpm check-exports && pnpm typecheck && pnpm test",
-        "bump-version": "changeset version",
+        "bump-version": "changeset add && changeset version",
         "publish": "changeset publish",
         "prepublishOnly": "pnpm build-ci"
     },
