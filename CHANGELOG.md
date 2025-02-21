@@ -1,5 +1,11 @@
 # hookform-input
 
+## 2.0.3
+
+### Patch Changes
+
+-   2c528bc: Bugfix
+
 ## 2.0.2
 
 ### Patch Changes

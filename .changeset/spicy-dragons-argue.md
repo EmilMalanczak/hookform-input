@@ -1,5 +1,0 @@
----
-'hookform-input': patch
----
-
-Bugfix
