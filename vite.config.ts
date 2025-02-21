@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+import fs from 'node:fs';
 import path from 'node:path';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
@@ -11,8 +12,8 @@ export default defineConfig({
         lib: {
             entry: path.resolve('src', 'index.ts'),
             name: pkg.name,
-            formats: ['es'],
-            fileName: (_, name) => `${name}.js`,
+            formats: ['es', 'cjs'],
+            fileName: (format, name) => `${name}.${format === 'es' ? 'js' : 'cjs'}`,
         },
         rollupOptions: {
             external: ['react', 'react-hook-form'],
@@ -35,6 +36,15 @@ export default defineConfig({
         dts({
             rollupTypes: true,
             tsconfigPath: './tsconfig.json',
+            outDir: 'dist',
+            afterBuild() {
+                // NOTE: required to prevent error related to CommonJS module
+                // Duplicate index.d.ts to index.d.cts
+                const indexDTs = path.resolve('dist', 'index.d.ts');
+                const commonDTs = path.resolve('dist', 'index.d.cts');
+
+                fs.copyFileSync(indexDTs, commonDTs);
+            },
         }),
     ],
     server: {
